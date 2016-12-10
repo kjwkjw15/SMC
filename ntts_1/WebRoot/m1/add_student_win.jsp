@@ -107,7 +107,7 @@
 			 	//$(sex_chose).attr('checked','true');		//不能使用jquery ID选取器，否则会有radio多次切换后无法正常选中的情况，暂时无法解决，使用原生JS方法
 		 	}else if(idcard.length==15){
 		 		sex=idcard.substring(13,14)%2;//1:male 0:female
-		 		var sex_chose="#sex".concat(sex?1:2);
+		 		var sex_chose="sex".concat(sex?1:2);
 				var birthdate="19".concat(idcard.substring(6,12));
 			 	var age=new Date().getFullYear() - birthdate.substring(0,4);
 			 	$('#birthdate').textbox('setValue',birthdate);
