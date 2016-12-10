@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:task="http://www.springframework.org/schema/task"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+      http://www.springframework.org/schema/beans/spring-beans-2.5.xsd   
+      http://www.springframework.org/schema/context   
+      http://www.springframework.org/schema/context/spring-context-2.5.xsd   
+      http://www.springframework.org/schema/aop   
+      http://www.springframework.org/schema/aop/spring-aop-2.5.xsd   
+      http://www.springframework.org/schema/tx   
+      http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+      http://www.springframework.org/schema/task
+      http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+    default-autowire="byName"> 
+
+<!--  	<context:annotation-config /> -->
+<!--    <context:component-scan base-package="com.yesall" /> -->
+
+
+	<bean id="dataSource"
+		class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="url"
+			value="jdbc:mysql://localhost:3306/student">
+		</property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="root"></property>
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+		<!-- <property name="configLocation" value="classpath:hibernate.cfg.xml"></property> -->
+        <!-- <property name="mappingLocations" value="classpath:com/yesall/ntts/entities/*.hbm.xml"></property> -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
+			</props>
+		</property>
+		<property name="packagesToScan">  
+			<list>  
+				<value>com.yesall.ntts.entity</value>  
+			</list>  
+		</property> 
+
+	</bean>
+	
+	<!-- 配置 Spring 的声明式事务 -->
+	
+    <!-- 1. 配置 hibernate 的事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+    <!-- 2. 配置事务属性 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 3. 配置事务切入点, 再把事务属性和事务切入点关联起来 -->
+    <aop:config proxy-target-class="true">
+        <aop:pointcut expression="execution(* com.yesall.ntts.srv.*.*(..))" id="txPointcut"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
+    </aop:config>
+    
+    
+    <!-- 使用annotation自动注入bean,并启动相关处理注解的进程。注意下面的配置必须正确 -->  
+	<context:component-scan base-package="com.yesall.ntts">  
+	    <context:include-filter type="regex" expression="com\.yesall\.ntts\.dao\..*"/>
+	    <context:include-filter type="regex" expression="com\.yesall\.ntts\.srv\..*"/>
+	    <context:exclude-filter type="regex" expression="com\.yesall\.ntts\.action\..*"/>
+	    <context:exclude-filter type="regex" expression="com\.yesall\.ntts\.entity\..*"/>
+	</context:component-scan> 
+</beans>

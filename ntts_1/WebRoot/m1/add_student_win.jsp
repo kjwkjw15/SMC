@@ -8,7 +8,7 @@
 	    			<td style="width:130px"><span class="form_title" >姓名:</span></td>
 	    			<td style="width:350px"><input id="name" name="baseInfo.name" class="easyui-textbox" style="width:200px" data-options="prompt:'输入姓名',required:true"></td>
 	    			<td style="width:130px"><span class="form_title" >身份证:</span></td>
-	    			<td style="width:350px"><input id="iCard" name="baseInfo.iCard" onchange="fuck()" class="easyui-validatebox textbox" style="width:200px" data-options="validType:'',prompt:'输入身份证号',required:true" style="width:200px"></td>
+	    			<td style="width:350px"><input id="idCard" name="baseInfo.iCard" class="easyui-validatebox" style="width:200px" data-options="validType:'idcard',prompt:'输入身份证号',required:true" style="width:200px"></td>
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >年月:</span></td>
@@ -18,8 +18,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >性别:</span>	</td>
-	    			<td style="width:350px"> <input type="radio" id="sex1" name="baseInfo.sex" value="0" checked>男
-                							 <input type="radio" id="sex2" name="baseInfo.sex" value="1">女</td>
+	    			<td style="width:350px"> <input type="radio" id="sex1" name="baseInfo.sex" value="0" disabled>男
+                							 <input type="radio" id="sex2" name="baseInfo.sex" value="1" disabled>女</td>
 	    			<td style="width:130px"><span class="form_title" >单位:</span></td>
 	    			<td style="width:350px"><input id="companyName" name="baseInfo.companyName" class="easyui-textbox" style="width:200px" data-options=""></td>
 	    		</tr>
@@ -92,7 +92,39 @@
 
 </div>
 </s:form>
-<script type="text/javascript">
+<script>
+
+	$('#idCard').change(function(){
+			var idcard=$("#idCard").val();
+		 	if (idcard.length==18){
+		 		sex=idcard.substring(16,17)%2;//1:male 0:female
+		 		var sex_chose="sex".concat(sex?1:2);
+				var birthdate=idcard.substring(6,14);
+			 	var age=new Date().getFullYear() - birthdate.substring(0,4);
+			 	$('#birthdate').textbox('setValue',birthdate);
+			 	$('#age').textbox('setValue',age);
+			 	document.getElementById(sex_chose).checked=true;	//使用原生js，否则会出现以下情况
+			 	//$(sex_chose).attr('checked','true');		//不能使用jquery ID选取器，否则会有radio多次切换后无法正常选中的情况，暂时无法解决，使用原生JS方法
+		 	}else if(idcard.length==15){
+		 		sex=idcard.substring(13,14)%2;//1:male 0:female
+		 		var sex_chose="#sex".concat(sex?1:2);
+				var birthdate="19".concat(idcard.substring(6,12));
+			 	var age=new Date().getFullYear() - birthdate.substring(0,4);
+			 	$('#birthdate').textbox('setValue',birthdate);
+			 	$('#age').textbox('setValue',age);
+			 	document.getElementById(sex_chose).checked=true;
+			 	//$(sex_chose).attr('checked','checked');
+		 	}
+	})
+	$.extend($.fn.validatebox.defaults.rules, {
+	    idcard: {
+			validator: function(value){
+				return /^\d{15}(\d{2}[A-Za-z0-9])?$/i.test(value);
+			},
+			message: 'Wrong idCard'
+    }
+	});
+
 	function addBaseInfo(){
 		$.ajax({
 			url:'addBaseInfo',
