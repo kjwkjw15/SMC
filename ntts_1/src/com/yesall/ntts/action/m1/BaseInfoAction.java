@@ -20,7 +20,7 @@ public class BaseInfoAction extends ActionSupport{
 	public void setBaseInfo(BaseInfo baseInfo) {
 		this.baseInfo = baseInfo;
 	}
-	
+	//基本信息录入
 	public String addBaseInfo()throws Exception{
 		Date date=new Date();
 		
