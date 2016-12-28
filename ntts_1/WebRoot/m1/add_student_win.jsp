@@ -18,8 +18,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >性别:</span>	</td>
-	    			<td style="width:350px"> <input type="radio" id="sex1" name="baseInfo.sex" value="0" disabled>男
-                							 <input type="radio" id="sex2" name="baseInfo.sex" value="1" disabled>女</td>
+	    			<td style="width:350px"> <input type="radio" id="sex" name="baseInfo.sex" value="1" disabled>男
+                							 <input type="radio" id="sex" name="baseInfo.sex" value="0" disabled>女</td>
 	    			<td style="width:130px"><span class="form_title" >单位:</span></td>
 	    			<td style="width:350px"><input id="companyName" name="baseInfo.companyName" class="easyui-textbox" style="width:200px" data-options=""></td>
 	    		</tr>
@@ -77,18 +77,6 @@
 	    		</tr>
 	    	</table>
 
-<script>
-/* $.extend($.fn.validatebox.defaults.rules, {
-            idcard: {// 验证身份证
-                validator: function (value) {
-                    return /^\d{15}(\d{2}[A-Za-z0-9])?$/i.test(value);
-                    
-                    
-                },
-                message: '身份证号码格式不正确'
- }
-})       */
-</script>
 
 </div>
 </s:form>
@@ -126,6 +114,10 @@
 	});
 
 	function addBaseInfo(){
+		if(!$("#frm_win").form("validate")) {
+				alert("请根据提示输入正确的信息！");
+				return;
+			}	
 		$.ajax({
 			url:'addBaseInfo',
 			type: 'POST',
