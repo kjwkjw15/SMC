@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
-<package name="m3" extends="struts-default,json-default" namespace="/">
+<package name="de" extends="struts-default,json-default" namespace="/">
         <action name="userLogin" class="com.yesall.ntts.action.UserAction" method="userLogin">
                 <result name="success">loginSuccess.jsp</result>
                 <result name="fail">index.jsp</result>
         </action>
-        <action name="addBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="addBaseInfo">
-          <result type="json"></result>
-        </action>
+
 </package>
 
 <package name="m1" extends="struts-default,json-default" namespace="/m1">
-
+        <action name="addBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="addBaseInfo">
+          <result type="json"></result>
+        </action>
 </package>
 </struts>    

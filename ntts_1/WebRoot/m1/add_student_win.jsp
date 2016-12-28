@@ -59,15 +59,15 @@
 					<td ><span class="form_title" >缴费情况:</span></td>
 					<td>
 	    			<select style="width:150px"  class="easyui-combobox"  >
-							<option value="">是</option>
-							<option value="">否</option>
+							<option value="1">是</option>
+							<option value="0">否</option>
 					</select>
 					</td>
 						<td ><span class="form_title" >资料是否齐全:</span></td>
 					<td>
 	    			<select style="width:150px"  class="easyui-combobox"  >
-							<option value="">是</option>
-							<option value="">否</option>
+							<option value="1">是</option>
+							<option value="0">否</option>
 					</select>
 					</td>
 	    		</tr>
@@ -119,7 +119,7 @@
 				return;
 			}	
 		$.ajax({
-			url:'addBaseInfo',
+			url:'m1/addBaseInfo',
 			type: 'POST',
 			data: $(document.frm_win).serialize(),
 			 success: function(data){

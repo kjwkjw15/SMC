@@ -13,6 +13,7 @@ public class BaseInfoAction extends ActionSupport{
 	@Autowired
 	private BaseInfoSrv baseInfoSrv;
 	private BaseInfo baseInfo;
+	
 	public BaseInfo getBaseInfo() {
 		return baseInfo;
 	}
@@ -22,7 +23,7 @@ public class BaseInfoAction extends ActionSupport{
 	
 	public String addBaseInfo()throws Exception{
 		Date date=new Date();
-		System.out.println(date);
+		
 		baseInfo.setWritedate(date);
 		baseInfoSrv.addBaseInfo(baseInfo);
 		return "success";
