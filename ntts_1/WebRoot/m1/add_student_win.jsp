@@ -6,26 +6,26 @@
 			<table class="easyui-panel" title="请添加学员基本信息 " >		
 				<tr>
 	    			<td style="width:130px"><span class="form_title" >姓名:</span></td>
-	    			<td style="width:350px"><input id="name" name="baseInfo.name" class="easyui-textbox" style="width:200px" data-options="prompt:'输入姓名',required:true"></td>
+	    			<td style="width:350px"><input id="baseInfo.name" name="baseInfo.name" class="easyui-textbox" style="width:200px" data-options="prompt:'输入姓名',required:true"></td>
 	    			<td style="width:130px"><span class="form_title" >身份证:</span></td>
-	    			<td style="width:350px"><input id="idCard" name="baseInfo.iCard" class="easyui-validatebox" style="width:200px" data-options="validType:'idcard',prompt:'输入身份证号',required:true" style="width:200px"></td>
+	    			<td style="width:350px"><input id="baseInfo.idCard" name="baseInfo.idCard" class="easyui-validatebox" style="width:200px" data-options="validType:'idcard',prompt:'输入身份证号',required:true" style="width:200px"></td>
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >年月:</span></td>
-	    			<td style="width:350px"><input id="birthdate" name="baseInfo.birthdate" class="easyui-textbox" readonly="readonly" style="width:200px"></td>
+	    			<td style="width:350px"><input id="baseInfo.birthdate" name="baseInfo.birthdate" class="easyui-textbox" readonly="readonly" style="width:200px"></td>
 	    			<td style="width:130px"><span class="form_title" >年龄:</span></td>
-	    			<td style="width:350px"><input id="age" name="baseInfo.age" readonly="readonly" class="easyui-textbox" style="width:200px" data-options=""></td>
+	    			<td style="width:350px"><input id="baseInfo.age" name="baseInfo.age" readonly="readonly" class="easyui-textbox" style="width:200px" data-options=""></td>
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >性别:</span>	</td>
-	    			<td style="width:350px"> <input type="radio" id="sex" name="baseInfo.sex" value="1" disabled>男
-                							 <input type="radio" id="sex" name="baseInfo.sex" value="0" disabled>女</td>
+	    			<td style="width:350px"> <input type="radio" id="baseInfo.sex1" name="baseInfo.sex" value="1" >男
+                							 <input type="radio" id="baseInfo.sex2" name="baseInfo.sex" value="0" >女</td>
 	    			<td style="width:130px"><span class="form_title" >单位:</span></td>
-	    			<td style="width:350px"><input id="companyName" name="baseInfo.companyName" class="easyui-textbox" style="width:200px" data-options=""></td>
+	    			<td style="width:350px"><input id="baseInfo.companyName" name="baseInfo.companyName" class="easyui-textbox" style="width:200px" data-options=""></td>
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >电话:</span>	</td>
-	    			<td style="width:350px"><input id="phone" name="baseInfo.phone" class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
+	    			<td style="width:350px"><input id="baseInfo.phone" name="baseInfo.phone" class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
 	    			</td>
 	    		</tr>
 	    	</table>
@@ -81,27 +81,36 @@
 </div>
 </s:form>
 <script>
-
-	$('#idCard').change(function(){
-			var idcard=$("#idCard").val();
+	$('#baseInfo\\.idCard').change(function(){
+			var idcard=$("#baseInfo\\.idCard").val();
 		 	if (idcard.length==18){
 		 		sex=idcard.substring(16,17)%2;//1:male 0:female
-		 		var sex_chose="sex".concat(sex?1:2);
+
+		 		if(sex!=0){
+		 			$("#baseInfo\\.sex1").prop("checked",true);		 			
+		 		}
+		 		else if(sex==0){
+		 			$("#baseInfo\\.sex2").prop("checked",true);
+		 		}
+		 		
 				var birthdate=idcard.substring(6,14);
 			 	var age=new Date().getFullYear() - birthdate.substring(0,4);
-			 	$('#birthdate').textbox('setValue',birthdate);
-			 	$('#age').textbox('setValue',age);
-			 	document.getElementById(sex_chose).checked=true;	//使用原生js，否则会出现以下情况
-			 	//$(sex_chose).attr('checked','true');		//不能使用jquery ID选取器，否则会有radio多次切换后无法正常选中的情况，暂时无法解决，使用原生JS方法
+			 	$('#baseInfo\\.birthdate').textbox('setValue',birthdate);
+			 	$('#baseInfo\\.age').textbox('setValue',age);
+			 	
 		 	}else if(idcard.length==15){
 		 		sex=idcard.substring(13,14)%2;//1:male 0:female
-		 		var sex_chose="sex".concat(sex?1:2);
+		 		
+		 		if(sex!=0){
+		 			$("#baseInfo\\.sex1").prop("checked",true);		 			
+		 		}
+		 		else{
+		 			$("#baseInfo\\.sex2").prop("checked",true);
+		 		}
 				var birthdate="19".concat(idcard.substring(6,12));
 			 	var age=new Date().getFullYear() - birthdate.substring(0,4);
-			 	$('#birthdate').textbox('setValue',birthdate);
-			 	$('#age').textbox('setValue',age);
-			 	document.getElementById(sex_chose).checked=true;
-			 	//$(sex_chose).attr('checked','checked');
+			 	$('#baseInfo\\.birthdate').textbox('setValue',birthdate);
+			 	$('#baseInfo\\.age').textbox('setValue',age);
 		 	}
 	})
 	$.extend($.fn.validatebox.defaults.rules, {
