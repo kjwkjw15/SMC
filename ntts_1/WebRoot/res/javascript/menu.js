@@ -1,8 +1,8 @@
 var menu_tab_title_url_array = new Array(
 	["100100", "学员管理", ""],
-	["100101", "学员录入", "m1/add_student_win.jsp"],
-	["100102", "查看学员", "m1/add_student_win.jsp"],
-	["100103", "管理学院", "m1/add_student_win.jsp"],
+	["100101", "学员录入", "m1/add_student_form.jsp"],
+	["100102", "查看学员", "m1/query_stu_form.jsp"],
+	["100103", "管理学院", "m1/add_student_form.jsp"],
 	["100200", "班级管理", ""],
 	["100201", "组班", "m2/add_student_form.jsp"],
 	["100202", "查询班级", "m2/add_student_form.jsp"],

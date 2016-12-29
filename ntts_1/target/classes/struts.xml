@@ -13,5 +13,10 @@
         <action name="addBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="addBaseInfo">
           <result type="json"></result>
         </action>
+        <action name="query_BaseInfo_JsonArray" class="com.yesall.ntts.action.m1.BaseInfoAction" method="query_BaseInfo_JsonArray">
+         	<result type="json">
+				<param name="root">baseInfoJsonArray</param>
+		 	</result>       
+        </action>
 </package>
 </struts>    
