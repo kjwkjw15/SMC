@@ -3,13 +3,10 @@ package com.yesall.ntts.entity.m1;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,7 +22,6 @@ public class BaseInfo implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
 	private String idCard;
 	private String name;
 	private Integer age;
@@ -43,15 +39,14 @@ public class BaseInfo implements java.io.Serializable {
 	}
 
 	/** minimal constructor */
-	public BaseInfo(Integer id) {
-		this.id = id;
+	public BaseInfo(String idCard) {
+		this.idCard = idCard;
 	}
 
 	/** full constructor */
-	public BaseInfo(Integer id, String idCard, String name, Integer age,
-			String birthdate, String sex, String companyName, String phone,
-			Date writedate, Set<BaomingInfo> baomingInfos) {
-		this.id = id;
+	public BaseInfo(String idCard, String name, Integer age, String birthdate,
+			String sex, String companyName, String phone, Date writedate,
+			Set<BaomingInfo> baomingInfos) {
 		this.idCard = idCard;
 		this.name = name;
 		this.age = age;
@@ -65,17 +60,7 @@ public class BaseInfo implements java.io.Serializable {
 
 	// Property accessors
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name = "id", unique = true, nullable = false)
-	public Integer getId() {
-		return this.id;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	@Column(name = "idCard")
+	@Column(name = "idCard", unique = true, nullable = false)
 	public String getIdCard() {
 		return this.idCard;
 	}

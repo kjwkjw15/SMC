@@ -12,15 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yesall.ntts.entity.m1.BaomingInfo;
 import com.yesall.ntts.entity.m1.BaseInfo;
 import com.yesall.ntts.srv.m1.BaseInfoSrv;
+
 @Controller
 public class BaseInfoAction extends ActionSupport{
 	@Autowired
 	private BaseInfoSrv baseInfoSrv;
 	private BaseInfo baseInfo;
+	private BaomingInfo baomingInfo;
 	private JSONArray  baseInfoJsonArray;
 
+	public BaomingInfo getBaomingInfo() {
+		return baomingInfo;
+	}
+	public void setBaomingInfo(BaomingInfo baomingInfo) {
+		this.baomingInfo = baomingInfo;
+	}
 	public JSONArray getBaseInfoJsonArray() {
 		return baseInfoJsonArray;
 	}
@@ -33,13 +42,11 @@ public class BaseInfoAction extends ActionSupport{
 	public void setBaseInfo(BaseInfo baseInfo) {
 		this.baseInfo = baseInfo;
 	}
-	//基本信息录入
-	public String addBaseInfo()throws Exception{
-		Date date=new Date();
+	//基本信息录入+报名信息
+	public String submitBaseInfo()throws Exception{		
 		
-		baseInfo.setWritedate(date);
-		baseInfoSrv.addBaseInfo(baseInfo);
-		return "success";
+		Boolean bln = baseInfoSrv.submitBaseInfo(baseInfo, baomingInfo);
+		return bln ? "success" : "failure";
 	}
 	
 	/*

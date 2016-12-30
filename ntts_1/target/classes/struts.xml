@@ -10,7 +10,7 @@
 </package>
 
 <package name="m1" extends="struts-default,json-default" namespace="/m1">
-        <action name="addBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="addBaseInfo">
+        <action name="submitBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="submitBaseInfo">
           <result type="json"></result>
         </action>
         <action name="query_BaseInfo_JsonArray" class="com.yesall.ntts.action.m1.BaseInfoAction" method="query_BaseInfo_JsonArray">

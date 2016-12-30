@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-	<s:form id="frm_win" action="addBaseInfo">
+	<s:form id="frm_win" >
 	<div style="padding:10px 10px 10px 10px">  
 			<table class="easyui-panel" title="请添加学员基本信息 " >		
 				<tr>
@@ -24,47 +24,43 @@
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >电话:</span>	</td>
-	    			<td style="width:350px"><input id="baseInfo.phone" name="baseInfo.phone" class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
+	    			<td style="width:350px" colspan="3"><input id="baseInfo.phone" name="baseInfo.phone" class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
 	    			</td>
 	    		</tr>
 	    	</table>
 	    	
-	    	<div style="text-align:center">
-	    		 <a id="btnSave_Infor" class="easyui-linkbutton" onclick="addBaseInfo()">提交</a>
-	    	</div>
 	    </div>
-	</s:form>
-
-	<s:form>
+	    
+	    <!-- 报名信息 -->
 		<div>
-	    	<table class="easyui-panel" title="请添加学员报名信息 " style="height:314px">		
+	    	<table class="easyui-panel" title="请添加学员报名信息 " style="height:280px">		
 				<tr>
 					<td style="width:130px"><span class="form_title" >一级工种:</span></td>
 					<td>
-	    			<select style="width:150px" class="easyui-combobox"  >
+	    			<select style="width:150px" id="baomingInfo.firstKind" name="baomingInfo.firstKind" class="easyui-combobox" data-options="editable:false" >
 							<option value="100309">电工</option>
 							<option value="100310">焊工</option>
 					</select>
 					</td>
 					<td style="width:130px"><span class="form_title" >二级工种:</span></td>
 					<td>
-	    			<select style="width:150px" class="easyui-combobox"  >
-							<option value="100310">复训</option>
-							<option value="100312">初训</option>
+	    			<select style="width:150px" id="baomingInfo.secondKind" name="baomingInfo.secondKind" class="easyui-combobox" data-options="editable:false" >
+							<option value="100310">初训</option>
+							<option value="100312">复训</option>
 					</select>
 					</td>
 	    		</tr>
 	    		<tr>
 					<td ><span class="form_title" >缴费情况:</span></td>
 					<td>
-	    			<select style="width:150px"  class="easyui-combobox"  >
+	    			<select style="width:150px" id="baomingInfo.whetherPay" name="baomingInfo.whetherPay"  class="easyui-combobox" data-options="editable:false" >
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select>
 					</td>
 						<td ><span class="form_title" >资料是否齐全:</span></td>
 					<td>
-	    			<select style="width:150px"  class="easyui-combobox"  >
+	    			<select style="width:150px" id="baomingInfo.whetherInformation" name="baomingInfo.whetherInformation"  class="easyui-combobox"  data-options="editable:false">
 							<option value="1">是</option>
 							<option value="0">否</option>
 					</select>
@@ -72,12 +68,13 @@
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >入班情况:</span></td>
-	    			<td style="width:350px"><input id="" value="" class="easyui-textbox" data-options="multiline:true" style="width:200px;height:100px"></td>
+	    			<td style="width:350px" colspan="3"><input id="baomingInfo.remarkInfo" name="baomingInfo.remarkInfo" class="easyui-textbox" data-options="multiline:true" style="width:200px;height:100px"></td>
 	    		</tr>
 	    	</table>
-
-
-</div>
+		</div>
+	    <div style="text-align:center">
+	   	    	<a href="#" id="btnSubmit" class="easyui-linkbutton" onclick="submit2Server(this, '确认提交吗？','m1/submitBaseInfo')" style="color:blue">提交</a>
+	    </div>
 </s:form>
 <script>
 	$('#baseInfo\\.idCard').change(function(){
@@ -120,22 +117,31 @@
 			message: 'Wrong idCard'
     }
 	});
-
-	function addBaseInfo(){
-		if(!$("#frm_win").form("validate")) {
+	function submit2Server(btn, strConfirm, actionName) {		 
+			if(!$("#frm_win").form("validate")) {
 				alert("请根据提示输入正确的信息！");
 				return;
 			}	
-		$.ajax({
-			url:'m1/addBaseInfo',
-			type: 'POST',
-			data: $(document.frm_win).serialize(),
-			 success: function(data){
+			if(window.confirm(strConfirm)){			
+				if(actionName.indexOf("submit")>=0 ) {	//保存或提交，需要处理datagrid中的数据存储 目前没有
+					
+				}
+				//$("#"+btn.id).linkbutton('disable');
+				var idCard=$("#baseInfo\\.idCard").val();
+				$.ajax({
+				   url: actionName+'?idCard='+idCard,
+				   type: 'POST',
+				   data: $(document.frm_win).serialize(),
+				   success: function(data){
 				   		alert('操作成功！');
+				   		$("#frm_win")[0].reset();
 				   },
 				   error: function(){
 				   		alert('操作失败！');
 				   }
-		})
-	}
+				});
+				
+			}
+		}	
+
 </script>

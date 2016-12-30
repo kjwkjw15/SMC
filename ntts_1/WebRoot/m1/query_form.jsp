@@ -26,7 +26,7 @@
 </div>
 <br/>
 <div style="padding:10px 10px 10px 20p">
-   	<table id="datagrid" class="easyui-datagrid" title="未查询信息 " style="width:1119px;height:430px"
+   	<table id="datagrid" class="easyui-datagrid" title="学员基本信息 " style="width:1119px;height:430px"
 		data-options="singleSelect:true,
 					collapsible:false,
 					method:'get'" >
@@ -64,12 +64,9 @@
 		$('#datagrid').datagrid('selectRow',rowIndex);
 		var row = $('#datagrid').datagrid('getSelected');
 		if (row) {
-			var type = WIN_URL_TYPE_OPER;
-			if(row.msgpkg_status != 1)
-				type = WIN_URL_TYPE_VIEW;
 							
-			win_href = "m3/query_trans_detail_win.jsp?type=" +type+ "&tsn=" + row.msgpkg_tsn + "&tsn_refer=" + row.msgpkg_tsn_refer;
-			openEasyuiWin($("#win_opener"), win_href, "详细信息");
+			win_href = "m1/query_baoming_win.jsp?idCard=" +row.idCard;
+			openEasyuiWin($("#win_opener"), win_href, "学员报名信息");
 		}
 	}
     
