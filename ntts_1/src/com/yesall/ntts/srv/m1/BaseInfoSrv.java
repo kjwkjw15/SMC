@@ -26,6 +26,6 @@ public class BaseInfoSrv {
 		String sql = "select idCard,name,age,birthdate,sex,companyName,phone,writedate from base_Info";
 
 		
-		return baseInfoDAO.findBySQL(sql, "idCard,name,age,birthday,sex,companyName,phone,writedate");
+		return baseInfoDAO.findBySQL(sql, "idCard,name,age,birthdate,sex,companyName,phone,writedate");
 	}
 }

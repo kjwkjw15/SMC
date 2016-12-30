@@ -1,6 +1,5 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
-<body>
 	<s:form id="frm_win" action="addBaseInfo">
 	<div style="padding:10px 10px 10px 10px">  
 			<table class="easyui-panel" title="请添加学员基本信息 " >		
@@ -140,4 +139,3 @@
 		})
 	}
 </script>
-</body>
