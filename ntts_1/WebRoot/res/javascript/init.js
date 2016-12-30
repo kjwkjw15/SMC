@@ -45,6 +45,7 @@ function initWinFields(actionAndQuery, keyPrefix) {
         	$.each(data, function(key, value) {
         		if(typeof(value) == "object" && Object.prototype.toString.call(value).toLowerCase() == "[object object]" && !value.length) {	//判断元素本身是否为JSON（不确定是否严谨）
         			$.each(value, function(subKey, subValue) {
+        				
         				initEasyuiValue(key, subKey, subValue);
         			})
         		}
@@ -67,9 +68,20 @@ function initEasyuiValue(keyPrefix, key, value) {
 
 	var frmField = $("#"+key);
 	if(frmField.length > 0) {
-		if(frmField.attr("class").indexOf("textbox") >= 0)
-			frmField.textbox('setValue', value);
-
-		//补齐其他类型
+		try {
+			if(frmField.attr("class").indexOf("easyui-textbox") == 0)
+				frmField.textbox('setValue', value);
+			else if(frmField.attr("class").indexOf("easyui-combobox") == 0)
+				frmField.combobox('setValue', value);
+			else if(frmField.attr("class").indexOf("easyui-numberbox") == 0)
+				frmField.numberbox('setValue', value);
+			else if(frmField.attr("class").indexOf("easyui-datetimebox") == 0)
+				frmField.datetimebox('setValue', value);
+			else if(frmField.attr("class").indexOf("easyui-datebox") == 0)
+				frmField.datebox('setValue', value);			
+			//补齐其他类型 
+		}
+		catch (e) {
+		}
 	}
 }

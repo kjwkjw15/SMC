@@ -72,7 +72,7 @@ public class BaomingInfo implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, optional=false)
 	@JoinColumn(name = "idCard", nullable = false)
 	public BaseInfo getBaseInfo() {
 		return this.baseInfo;

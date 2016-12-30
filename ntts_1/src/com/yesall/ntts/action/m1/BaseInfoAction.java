@@ -23,7 +23,14 @@ public class BaseInfoAction extends ActionSupport{
 	private BaseInfo baseInfo;
 	private BaomingInfo baomingInfo;
 	private JSONArray  baseInfoJsonArray;
+	private JSONObject baseInfoJsonObject;
 
+	public JSONObject getBaseInfoJsonObject() {
+		return baseInfoJsonObject;
+	}
+	public void setBaseInfoJsonObject(JSONObject baseInfoJsonObject) {
+		this.baseInfoJsonObject = baseInfoJsonObject;
+	}
 	public BaomingInfo getBaomingInfo() {
 		return baomingInfo;
 	}
@@ -58,6 +65,21 @@ public class BaseInfoAction extends ActionSupport{
 				
 				baseInfoJsonArray = baseInfoSrv.getBaseInfoJsonArray();
 
+				return "success";
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return null;
+		}
+		
+		public String queryBaseInfoJsonObject() {
+			try {
+				HttpServletRequest request = ServletActionContext.getRequest();
+				
+				String idCard = request.getParameter("idCard");
+				
+				baseInfoJsonObject = baseInfoSrv.getBaseInfoJson(idCard);
 				return "success";
 			} catch (Exception e) {
 				// TODO Auto-generated catch block

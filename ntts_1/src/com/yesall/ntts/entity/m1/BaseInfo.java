@@ -133,7 +133,7 @@ public class BaseInfo implements java.io.Serializable {
 		this.writedate = writedate;
 	}
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "baseInfo")
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,  mappedBy = "baseInfo")
 	public Set<BaomingInfo> getBaomingInfos() {
 		return this.baomingInfos;
 	}

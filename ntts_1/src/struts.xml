@@ -18,5 +18,10 @@
 				<param name="root">baseInfoJsonArray</param>
 		 	</result>       
         </action>
+        <action name="queryBaseInfoJsonObject" class="com.yesall.ntts.action.m1.BaseInfoAction" method="queryBaseInfoJsonObject">       
+         	<result type="json">
+				<param name="root">baseInfoJsonObject</param>
+		 	</result>        
+        </action>
 </package>
 </struts>    
