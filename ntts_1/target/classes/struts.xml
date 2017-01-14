@@ -23,5 +23,10 @@
 				<param name="root">baseInfoJsonObject</param>
 		 	</result>        
         </action>
+        <action name="queryBaomingJsonArray" class="com.yesall.ntts.action.m1.BaomingInfoAction" method="queryBaomingJsonArray">
+            <result type="json">
+				<param name="root">baomingJsonArray</param>
+		 	</result>  
+        </action>
 </package>
 </struts>    

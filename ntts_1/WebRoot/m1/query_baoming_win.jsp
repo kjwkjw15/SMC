@@ -35,24 +35,22 @@
 	    	</table>
 	    	
 	    	<div style="text-align:center">
-	    		 <a id="btnSave_Infor" class="easyui-linkbutton" onclick="addBaseInfo()">修改</a>
+	    		 <a id="btnSave_Infor" class="easyui-linkbutton" onclick="submit2Server(this, '确认修改吗？','m1/updateBaseInfo')">修改</a>
 	    	</div>
 	    </div>
 	<!-- 报名 -->
 	
 	<br/>	
 		 
-	   	<table id="datagridTransaction" class="easyui-datagrid" title="报名情况修改" style="width:850px;height:125px"
+	   	<table id="datagridBaoming" class="easyui-datagrid" title="报名情况修改" style="width:850px;height:125px"
 			data-options="iconCls: 'icon-edit',singleSelect:true,toolbar: 'datagridTransactionToolbar',onClickRow: onClickRowTransaction,method:'get'">
 			<thead>
 				<tr>
-					<th data-options="field:'transactionType',editor:{type:'validatebox',options:{required:false,validType:'length[0,50]'}},width:100,align:'center'">一级工种</th>
-					
-										
-					<th data-options="field:'transactionAmount',editor:{type:'numberbox',options:{required:true,precision:2,validType:'length[1,20]'}}">二级工种</th>
-					<th data-options="field:'accountBalance',editor:{type:'numberbox',options:{required:true,precision:2,validType:'length[1,20]'}}">缴费情况</th>
-					<th data-options="field:'transactionTime',editor:{type:'datetimebox',options:{required:true}},width:175,align:'center'">资料是否齐全</th>
-					<th data-options="field:'transactionSerial',editor:{type:'validatebox',options:{required:true,validType:'length[1,50]'}},width:125,align:'center'">入班情况</th>
+					<th data-options="field:'firstKind',editor:{type:'validatebox',options:{required:false,validType:'length[0,50]'}},width:100,align:'center'">一级工种</th>															
+					<th data-options="field:'secondKind',editor:{type:'numberbox',options:{required:true,precision:2,validType:'length[1,20]'}}">二级工种</th>
+					<th data-options="field:'whetherPay',editor:{type:'numberbox',options:{required:true,precision:2,validType:'length[1,20]'}}">缴费情况</th>
+					<th data-options="field:'whetherInformation',editor:{type:'datetimebox',options:{required:true}},width:175,align:'center'">资料是否齐全</th>
+					<th data-options="field:'classInfo',editor:{type:'validatebox',options:{required:true,validType:'length[1,50]'}},width:125,align:'center'">入班情况</th>
 			
 				</tr>
 			</thead>
@@ -97,10 +95,10 @@
 			}
 		}	
 		function showDetail(datagridID) {
-			var actionName= "m3/queryMsgpkgUp100306TransactionJsonArray";
+			var actionName= "m1/queryBaomingJsonArray";
 			$.ajax({
 				type: "post",
-				url: actionName+"?tsn="+tsn_refer,
+				url: actionName+"?idCard="+idCard,
 				dataType: "json",
 				success: function(jsonObject) {
 					var datagrid = $("#"+datagridID);
@@ -114,13 +112,13 @@
 		initWinFields('m1/queryBaseInfoJsonObject?idCard='+idCard+'&timestamp='+new Date().getTime(), 'baseInfo');		
 // 		if(tsn_refer != null) {
 
-// 			showDetail('datagridTransaction');
+ 			showDetail('datagridBaoming');
 // 		}	
 		
 		/*************************** easyui-datagrid之onclickrow参数固定，所以需要如下特别处理  ***********************/
 		
 		function onClickRowTransaction(index) {
-			onClickRow('datagridTransaction', index);
+			onClickRow('datagridBaoming', index);
 		}
 			
 	</script>
