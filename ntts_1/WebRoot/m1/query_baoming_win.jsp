@@ -25,17 +25,20 @@
 	    									</select>
                 							
 	    			<td style="width:130px"><span class="form_title" >单位:</span></td>
-	    			<td style="width:350px"><input id="baseInfo.companyName" name="baseInfo.companyName" class="easyui-textbox" style="width:200px" data-options=""></td>
+	    			<td style="width:350px"><input id="baseInfo.companyName" name="baseInfo.companyName" class="easyui-textbox" style="width:200px" data-options="">
+	    			<span style="color:red">*</span>
+	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >电话:</span>	</td>
-	    			<td style="width:350px"><input id="baseInfo.phone" name="baseInfo.phone" class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
+	    			<td style="width:350px"><input id="baseInfo.phone" name="baseInfo.phone"  class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
+	    			<span style="color:red">*</span>
 	    			</td>
 	    		</tr>
 	    	</table>
 	    	
 	    	<div style="text-align:center">
-	    		 <a id="btnSave_Infor" class="easyui-linkbutton" onclick="submit2Server(this, '确认修改吗？','m1/updateBaseInfo')">修改</a>
+	    		 <a id="btnUpdate_Infor" class="easyui-linkbutton" onclick="submit2Server(this, '确认修改吗？','m1/updateBaseInfo')">修改</a>
 	    	</div>
 	    </div>
 	<!-- 报名 -->
@@ -47,9 +50,9 @@
 			<thead>
 				<tr>
 					<th data-options="field:'firstKind',editor:{type:'validatebox',options:{required:false,validType:'length[0,50]'}},width:100,align:'center'">一级工种</th>															
-					<th data-options="field:'secondKind',editor:{type:'numberbox',options:{required:true,precision:2,validType:'length[1,20]'}}">二级工种</th>
-					<th data-options="field:'whetherPay',editor:{type:'numberbox',options:{required:true,precision:2,validType:'length[1,20]'}}">缴费情况</th>
-					<th data-options="field:'whetherInformation',editor:{type:'datetimebox',options:{required:true}},width:175,align:'center'">资料是否齐全</th>
+					<th data-options="field:'secondKind',editor:{type:'validatebox',options:{required:true,precision:2,validType:'length[1,20]'}}">二级工种</th>
+					<th data-options="field:'whetherPay',editor:{type:'validatebox',options:{required:true,precision:2,validType:'length[1,20]'}}">缴费情况</th>
+					<th data-options="field:'whetherInformation',editor:{type:'validatebox',options:{required:true}},width:175,align:'center'">资料是否齐全</th>
 					<th data-options="field:'classInfo',editor:{type:'validatebox',options:{required:true,validType:'length[1,50]'}},width:125,align:'center'">入班情况</th>
 			
 				</tr>
@@ -67,31 +70,30 @@
 			
 				if(actionName.indexOf("save")>=0 || actionName.indexOf("submit")>=0 || actionName.indexOf("auditApprove")>=0) {	//保存或提交，需要处理datagrid中的数据存储
 					//明细内容检查
-					var bln = validateEachRow("datagridTransaction");
-					if(!bln) {
-						alert("当前行数据输入不合法，请重新输入！");
-						return;
-					}					
+// 					var bln = validateEachRow("datagridTransaction");
+// 					if(!bln) {
+// 						alert("当前行数据输入不合法，请重新输入！");
+// 						return;
+// 					}					
 					
-					var rowsDataTransaction = $('#datagridTransaction').datagrid('getRows');
-					var jsonTransaction =JSON.stringify(rowsDataTransaction);
-					$("#hiddenDatagridTransaction").val(jsonTransaction);
+// 					var rowsDataTransaction = $('#datagridTransaction').datagrid('getRows');
+// 					var jsonTransaction =JSON.stringify(rowsDataTransaction);
+// 					$("#hiddenDatagridTransaction").val(jsonTransaction);
 					//alert($("#hiddenDatagridTransaction").val());
 				}
-				$("#"+btn.id).linkbutton('disable');
+				//$("#"+btn.id).linkbutton('disable');
 				$.ajax({
-				   url: actionName+'?tsn='+tsn_refer,
+				   url: actionName+'?idCard='+idCard,
 				   type: 'POST',
 				   data: $(document.frm_win).serialize(),
 				   success: function(data){
-				   		
-						query();
+				   		alert('修改成功！');
+						//query();
 				   },
 				   error: function(){
 				   		alert('操作失败！');
 				   }
 				});
-				closeWin(false);
 			}
 		}	
 		function showDetail(datagridID) {

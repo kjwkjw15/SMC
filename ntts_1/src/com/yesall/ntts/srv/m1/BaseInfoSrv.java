@@ -5,6 +5,7 @@ import java.util.Date;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,5 +58,16 @@ public class BaseInfoSrv {
 		//JSONObject jsonObject = JSONObject.fromObject(baseInfo);
 		JSONObject jsonObject =JsonUtility.ConvertFrom(baseInfo, "^baseInfo");
 		return jsonObject;
+	}
+	
+	public Boolean update (BaseInfo baseInfo){
+		try {
+			baseInfoDAO.saveOrUpdate(baseInfo);	
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return false;
+		}
+			
 	}
 }

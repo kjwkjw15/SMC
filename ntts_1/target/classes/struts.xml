@@ -28,5 +28,8 @@
 				<param name="root">baomingJsonArray</param>
 		 	</result>  
         </action>
+        <action name="updateBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="updateBaseInfo">
+        	<result type="json"></result>
+        </action>
 </package>
 </struts>    

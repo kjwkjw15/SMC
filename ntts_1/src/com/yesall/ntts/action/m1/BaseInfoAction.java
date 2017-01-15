@@ -87,4 +87,13 @@ public class BaseInfoAction extends ActionSupport{
 			}
 			return null;
 		}
+		
+		public String updateBaseInfo() {
+				HttpServletRequest request = ServletActionContext.getRequest();
+				
+				String idCard = request.getParameter("idCard");
+				
+				Boolean bln =baseInfoSrv.update(baseInfo);
+				return bln ? "success" : "failure";
+		}
 }
