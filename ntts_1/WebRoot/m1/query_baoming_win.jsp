@@ -31,9 +31,11 @@
 	    		</tr>
 	    		<tr>
 	    			<td style="width:130px"><span class="form_title" >电话:</span>	</td>
-	    			<td style="width:350px"><input id="baseInfo.phone" name="baseInfo.phone"  class="easyui-textbox" style="width:200px" data-options="prompt:'输入手机号',validType:'number'">
+	    			<td style="width:350px"><input id="baseInfo.phone" name="baseInfo.phone"  class="easyui-textbox" style="width:200px">
 	    			<span style="color:red">*</span>
 	    			</td>
+	    			<td style="width:130px"><span class="form_title" >录入日期:</span></td>
+	    			<td style="width:350px"><input id="writedate" name="writedate" class="easyui-datebox" style="width:200px" readonly="readonly" ></td>
 	    		</tr>
 	    	</table>
 	    	
@@ -60,6 +62,7 @@
 		</table>
 	<script type="text/javascript">
 		var idCard = '<%= request.getParameter("idCard")%>';	
+		
 		function submit2Server(btn, strConfirm, actionName) {
 			if(!$("#frm_win").form("validate")) {
 				alert("请根据提示输入正确的信息！");
@@ -82,8 +85,10 @@
 					//alert($("#hiddenDatagridTransaction").val());
 				}
 				//$("#"+btn.id).linkbutton('disable');
+				//getUrlParam(name);
+				var writedate=$("#baseInfo\\.writedate").datebox("getValue");
 				$.ajax({
-				   url: actionName+'?idCard='+idCard,
+				   url: actionName+'?writedate='+writedate,
 				   type: 'POST',
 				   data: $(document.frm_win).serialize(),
 				   success: function(data){

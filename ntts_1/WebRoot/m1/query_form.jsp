@@ -39,7 +39,7 @@
 				<th data-options="field:'sex',width:120,align:'center'">性别</th>
 				<th data-options="field:'companyName',width:100,align:'center'">单位</th>
 				<th data-options="field:'phone',width:120,align:'center'">电话</th>
-				<th data-options="field:'writedate',width:120,align:'center'">报名日期</th>
+				<th data-options="field:'writedate',width:120,align:'center'">录入日期</th>
 				<th data-options="field:'Oper1',width:66,align:'center',formatter:rowFormater">操作</th>
 			</tr>
 		</thead>
