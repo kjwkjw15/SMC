@@ -26,7 +26,7 @@
         <action name="queryBaomingJsonArray" class="com.yesall.ntts.action.m1.BaomingInfoAction" method="queryBaomingJsonArray">
             <result type="json">
 				<param name="root">baomingJsonArray</param>
-		 	</result>  
+		 	</result>   
         </action>
         <action name="updateBaseInfo" class="com.yesall.ntts.action.m1.BaseInfoAction" method="updateBaseInfo">
         	<result type="json"></result>
